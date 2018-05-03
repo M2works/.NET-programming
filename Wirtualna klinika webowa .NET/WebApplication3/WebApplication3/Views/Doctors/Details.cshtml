@@ -1,0 +1,97 @@
+﻿@model WebApplication3.Doctor
+
+@{
+    ViewBag.Title = "Szczegółowe dane lekarza - widok administratora";
+}
+
+<h2>Dane lekarza</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndingHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndingHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AverageRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AverageRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specialization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specialization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VisitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VisitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LicenseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LicenseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clinic.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clinic.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Wróć do listy", "AdminIndex")
+</p>

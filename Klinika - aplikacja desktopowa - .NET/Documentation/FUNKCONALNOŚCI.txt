@@ -1,0 +1,46 @@
+wpf                 	|   LOGIC          	|    DB CON           	|      DB
+
+
+WYSZUKANIE PACJENTA    	| RETURN PATIENTS(NAME)	| RETURN PATIENTS(NAME)
+			| RETURN PATIENTS(SURNAME)| RETURN PATIENTS(SURNAME)
+			| RETURN PATIENTS(PESEL)| RETURN PATIENTS(PESEL)
+			| 			| 
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+***************************************************
+DODANIE PACJENTA	| VALIDATE		| ADD_PATIENT		
+    			| CREATE_PATIENT	| 
+			| 			|
+			| ADD_PATIENT		|
+			| 			|
+***************************************************
+			| 			|
+USUÑ PACJENTA		| BOOL DELETE PATIENT	| DELETE PATIENT
+			| 			|
+			| 			|
+***************************************************
+Wyszukanie lekarza	| RETURN DOCTOR(SPEC)	| RETURN DOCTOR(SPEC)
+			| RETURN DOCTOR(DATE)	| RETURN DOCTOR(DATE)
+			| RETURN DOCTOR(PLACE)	| RETURN DOCTOR(PLACE)
+			| 			|
+***************************************************
+zAPIS/ODPIS DO LEKARZA	| VOID ADD VISIT(SLOT, DOCTOR)| ADD VISIT(~)
+			| 			|
+***************************************************
+EDYCJA PACJENTA		| UPDATE(PATIENT) 	| UPDATE(PATIENT)
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|
+			| 			|

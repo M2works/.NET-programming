@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApplication3.ArchivedVisit>
+
+@{
+    ViewBag.Title = "Historia wizyt";
+    string str;
+}
+
+<h2>Historia wizyt</h2>
+
+<div class="row centered">
+    <table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href='@Url.Action("Details", "ArchivedVisits", new { id = item.Id } )' class="btn btn-default">
+                @item.Doctor.Name  @item.Doctor.Surname<br />
+                @item.Date<br />
+                <b>Ocena:</b>
+                @if (item.Rating == null)
+                { str = "brak";
+                }
+                else { str = @item.Rating.Value.ToString(); }
+                @str
+                </a><br />
+            </td>
+        </tr>
+    }
+
+    </table>
+</div>
+
+@using (Verification v = new Verification(Request))
+{
+    if (v.IsAdmin())
+    {
+        <div>
+            @Html.ActionLink("Wróć do listy", "AdminIndex")
+        </div>
+    }
+    else
+    {
+        <div>
+            <a href='@Url.Action("Main", "Patients", new { id = (int)ViewBag.patientId })' class="btn btn-default">Wróć do poprzedniego ekranu</a><br />
+        </div>
+    }
+}

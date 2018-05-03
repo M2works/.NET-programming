@@ -1,0 +1,113 @@
+﻿@model WebApplication3.Patient
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Dane pacjenta</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PESELNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PESELNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_StreetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_StreetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_HomeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_HomeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAccount_Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAccount_Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAccount_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAccount_Password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Wróć do listy", "Index")
+</p>

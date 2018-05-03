@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        @if(Request.Cookies["user"].Value == "patient")
+        { 
+            <li>
+                @Html.ActionLink("Witaj " + User.Identity.GetUserName() + "!", $"Main/{Request.Cookies["user_id"].Value}", "Patients", routeValues: null, htmlAttributes: null)
+            </li>
+        }
+        else if (Request.Cookies["user"].Value == "admin")
+        {
+            <li>
+                @Html.ActionLink("Witaj Administratorze!", $"Index", "Admin", routeValues: null, htmlAttributes: null)
+            </li>
+        }
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj się</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+
+        <li>@Html.ActionLink("Załóż konto", "RegisterPatient", "Account", routeValues: null, htmlAttributes: null)</li>
+        <li>@Html.ActionLink("Zaloguj się", "Login", "Account", routeValues: null, htmlAttributes: null)</li>
+    </ul>
+}

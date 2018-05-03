@@ -1,0 +1,143 @@
+﻿@model WebApplication3.Patient
+
+@{
+    //ViewBag.Id = Model.Id.ToString();
+    ViewBag.Title = "Ekran pacjenta";
+}
+
+<h2>Dane pacjenta</h2>
+
+
+<div class="row centered">
+    <div class="col-sm-6">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PESELNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PESELNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PatientAddress_Country)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAddress_Country)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PatientAddress_City)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAddress_City)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PatientAddress_Street)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAddress_Street)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PatientAddress_StreetNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAddress_StreetNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PatientAddress_HomeNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAddress_HomeNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PatientAddress_PostalCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAddress_PostalCode)
+            </dd>
+            
+            @*<dt>
+                @Html.DisplayNameFor(model => model.PatientAccount_Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PatientAccount_Password)
+            </dd>*@
+
+        </dl>
+    </div>
+    <div class="col-sm-6">
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <a href='@Url.Action("Search", "Patients")' class="btn btn-default">Zapis na wizytę &raquo;</a><br />
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href='@Url.Action("PatientEdit", "Patients", new { id = Model.Id } )' class="btn btn-default">Edycja danych &raquo;</a><br />
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href='@Url.Action("History", "Patients", new { id = Model.Id })' class="btn btn-default">Historia wizyt &raquo;</a><br />
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row centered">
+    <div>
+        <h2>Nadchodzące wizyty</h2>
+        @foreach (VisitTime visit in Model.VisitTimes)
+        {
+
+            <a href='@Url.Action("PatientViewDetails", "VisitTimes", new { id = visit.Id })' class="btn btn-default">
+                @visit.Doctor.Name<br/>
+                @visit.Doctor.Surname<br/>
+                @visit.Date.ToShortDateString() @visit.Date.ToShortTimeString()<br/>
+            </a>
+        }
+    </div>
+</div>
+
+

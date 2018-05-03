@@ -1,0 +1,38 @@
+Instrukcja użycia
+Włączamy aplikację, zostaje wyświetlony ekran startowy z czterema przyciskami.
+
+<photo/>
+
+Pierwszy z nich pozwala na przejście do ekranu wyszukiwania pacjentów, kolejny pozwala przejść do ekranu wyszukiwania lekarzy. Trzeci przycisk otwiera panel dodawania nowego pacjenta, natomiast ostatni zamyka aplikację.
+
+Klikając w pierwszy zostajemy przeniesieni do ekranu wyszukiwania pacjentów. Wyszukiwanie zarówno pacjentów, jak i lekarzy odbywa się stronnicowo, nawigować między stronami można za pomocą znajdujących się na dole okna napisów “Poprzednia” i “Następna”, a wybór ilości rekordów na stronie można wybrać z rozwijanej listy.
+
+<photo/>
+
+W celu znalezienia pacjenta uzupełniamy pola znajdujące się po prawej stronie okna i klikamy przycisk “Szukaj”. Jeśli szukany pacjent został znaleziony, podwójnym kliknięciem w jego pozycję na liście przejdziemy do panelu z danymi pacjenta. Za pomocą przycisku “Wróć” wrócimy do poprzedniego ekranu tj. menu startowego.
+
+Przechodząc do panelu pacjenta zostają nam wyświetlone dane pacjenta oraz wizyty na które obecnie jest on zapisany.
+
+<photo/>
+
+W tym miejscu możemy edytować pacjenta. Aby to zrobić należy nacisnąć przycisk "Edytuj", dokonane zmiany potwierdzamy przyskiem "Zapisz". Za pomocą przycisku "Usuń pacjenta" można usunąć pacjenta z bazy. 
+Jeśli pacjent jest zapisany na wizytę i wyświetla się ona w panelu po prawej stronie to klikając podwójnie w wizytę możemy go z niej wypisać. 
+Aby wrócić do menu klikamy przycisk "Wróć do menu", natomiast przycisk "Zapisz na wizytę" przeniesie nas do ekranu wyszukiwania wizyt.
+
+Jeśli przeszliśmy do ekanu wyszukiwania wizyt po lewej stronie wpisujemy wymagane kryteria i system generuje nam wizyty spełniające warunki. 
+
+<photo/>
+
+Ze względu na to, że wolne wizyty nie są przechowywane w bazie danych, wizyty nie są stronnicowane. Aby zwiększyć liczbę generowanych wizyt, trzeba skorzystać z rozwijanej listy. Aby zapisać pacjenta na wizytę wykonujemy na niej podwójne kliknięcie. Z tego panelu możemy wrócić do panelu pacjenta za pomocą przycisku "Wróć do panelu pacjenta" oraz do menu za pomocą przycisku "Wróć do menu".
+
+Kolejnym ekranem do którego docieramy z menu jest panel wyszukiwania lekarzy. 
+
+<photo/>
+
+Po prawej stronie okna możemy wybrać kryteria wyszukiwania - specjalizację, imię, nazwisko i miejscowość. Po kliknęciu przycisku "Szukaj" po lewej stronie okna zostaje wyświetlona lista lekarzy spełniających kryteria. Do menu wracamy klikając przycisk "Wróć"
+
+Ostatnim przejściem z menu jest panel dodawania nowego pacjenta. 
+
+<photo/>
+
+Zostanie wyświetlony ekran bliźniaczo podobny do ekranu z danymi pacjenta, z tym że wszystkie pola będą puste i gotowe do wprowadzenia danych. Po kliknięciu przycisku "Dodaj pacjenta" nastapi próba dodania go do bazy danych, rezultatem będzie odpowiedni komunikat.

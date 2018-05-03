@@ -1,0 +1,47 @@
+﻿@model WebApplication3.VisitTime
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Usuń wizytę</h2>
+
+<h3>Czy na pewno chcesz anulować wizytę?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Anuluj" class="btn btn-default" /> |
+            @Html.ActionLink("Wróć do ekranu wizyty", "Details")
+        </div>
+    }
+</div>

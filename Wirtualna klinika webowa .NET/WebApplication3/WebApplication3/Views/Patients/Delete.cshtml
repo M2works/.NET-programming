@@ -1,0 +1,120 @@
+﻿@model WebApplication3.Patient
+
+@{
+    ViewBag.Title = "Usuwanie pacjenta - widok administratora";
+}
+
+<h2>Usuń pacjenta</h2>
+
+<h3>Czy na pewno chcesz usunąć dany obiekt?</h3>
+<div>
+    <h4>Patient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PESELNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PESELNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_StreetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_StreetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_HomeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_HomeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAddress_PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAddress_PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAccount_Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAccount_Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientAccount_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientAccount_Password)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Wróć do listy", "AdminIndex")
+        </div>
+    }
+</div>

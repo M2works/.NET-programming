@@ -1,0 +1,104 @@
+﻿@model PagedList.IPagedList<WebApplication3.Doctor>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Lista dostępnych lekarzy";
+    Verification v = new Verification(Request);
+}
+
+<h2>Wyszukaj lekarza</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Szukaj po imieniu, nazwisku lub nazwie kliniki: @Html.TextBox("SearchString")
+        <input type="submit" value="Szukaj" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Imię
+        </th>
+        <th>
+            @Html.ActionLink("Nazwisko", "Search", new { sortOrder = ViewBag.SurnameSortParm })
+        </th>
+        <th>
+            Godzina rozpoczęcia
+        </th>
+        <th>
+            Godzina zakończenia
+        </th>
+        <th>
+            Średnia ocen
+        </th>
+        <th>
+            Liczba ocen
+        </th>
+        <th>
+            Specjalizacja
+        </th>
+        <th>
+            Koszt wizyty
+        </th>
+        <th>
+            Numer Licencji
+        </th>
+        <th>
+            @Html.ActionLink("Klinika", "Search", new { sortOrder = ViewBag.ClinicSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatingsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicenseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clinic.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Wybierz lekarza", "DisplayList", "Doctors", new { id = item.Id }, null) 
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+@Html.PagedListPager(Model, page => Url.Action("Search",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<p>
+@Html.ActionLink("Wróć do poprzedniego ekranu", "Main", "Patients", new { id = v.GetCurrentUserID() }, null)
+</p>

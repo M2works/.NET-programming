@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SurgeryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SurgeryModelStoreContainer">
+    <EntitySet Name="Patients" EntityType="SurgeryModel.Store.Patients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Doctors" EntityType="SurgeryModel.Store.Doctors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clinics" EntityType="SurgeryModel.Store.Clinics" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Timetables" EntityType="SurgeryModel.Store.Timetables" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClinicDoctor" Association="SurgeryModel.Store.ClinicDoctor">
+      <End Role="Clinic" EntitySet="Clinics" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="DoctorVisitTime" Association="SurgeryModel.Store.DoctorVisitTime">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="VisitTime" EntitySet="Timetables" />
+    </AssociationSet>
+    <AssociationSet Name="PatientVisitTime" Association="SurgeryModel.Store.PatientVisitTime">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="VisitTime" EntitySet="Timetables" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Patients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PESELNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_Street" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_StreetNumber" Type="int" Nullable="false" />
+    <Property Name="Address_HomeNumber" Type="int" Nullable="true" />
+    <Property Name="Address_PostalCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doctors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClinicId" Type="int" Nullable="false" />
+    <Property Name="Specialization" Type="int" Nullable="false" />
+    <Property Name="VisitPrice" Type="int" Nullable="true" />
+    <Property Name="LicenceNumber" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clinics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_Street" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_StreetNumber" Type="int" Nullable="false" />
+    <Property Name="Address_HomeNumber" Type="int" Nullable="true" />
+    <Property Name="Address_PostalCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Timetables">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="DoctorId" Type="int" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClinicDoctor">
+    <End Role="Clinic" Type="SurgeryModel.Store.Clinics" Multiplicity="1" />
+    <End Role="Doctor" Type="SurgeryModel.Store.Doctors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clinic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="ClinicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DoctorVisitTime">
+    <End Role="Doctor" Type="SurgeryModel.Store.Doctors" Multiplicity="1" />
+    <End Role="VisitTime" Type="SurgeryModel.Store.Timetables" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VisitTime">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PatientVisitTime">
+    <End Role="Patient" Type="SurgeryModel.Store.Patients" Multiplicity="1" />
+    <End Role="VisitTime" Type="SurgeryModel.Store.Timetables" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VisitTime">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SurgeryModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="SurgeryModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Patients" EntityType="SurgeryModel.Patient" />
+          <EntitySet Name="Doctors" EntityType="SurgeryModel.Doctor" />
+          <EntitySet Name="Clinics" EntityType="SurgeryModel.Clinic" />
+          <AssociationSet Name="ClinicDoctor" Association="SurgeryModel.ClinicDoctor">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <EntitySet Name="Timetables" EntityType="SurgeryModel.VisitTime" />
+          <AssociationSet Name="DoctorVisitTime" Association="SurgeryModel.DoctorVisitTime">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="VisitTime" EntitySet="Timetables" />
+          </AssociationSet>
+          <AssociationSet Name="PatientVisitTime" Association="SurgeryModel.PatientVisitTime">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="VisitTime" EntitySet="Timetables" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="PESELNumber" Type="String" Nullable="false" />
+          <Property Name="Address" Type="SurgeryModel.Address" Nullable="false" />
+          <NavigationProperty Name="VisitTime" Relationship="SurgeryModel.PatientVisitTime" FromRole="Patient" ToRole="VisitTime" />
+        </EntityType>
+        <ComplexType Name="Address" >
+          <Property Type="String" Name="Country" Nullable="false" />
+          <Property Type="String" Name="City" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" />
+          <Property Type="Int32" Name="StreetNumber" Nullable="false" />
+          <Property Type="Int32" Name="HomeNumber" Nullable="true" />
+          <Property Type="Int32" Name="PostalCode" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" />
+          <NavigationProperty Name="Clinic" Relationship="SurgeryModel.ClinicDoctor" FromRole="Doctor" ToRole="Clinic" />
+          <Property Name="ClinicId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VisitTime" Relationship="SurgeryModel.DoctorVisitTime" FromRole="Doctor" ToRole="VisitTime" />
+          <Property Name="Specialization" Type="SurgeryModel.Specialization" Nullable="false" />
+          <Property Name="VisitPrice" Type="Int32" Nullable="true" />
+          <Property Name="LicenceNumber" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clinic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Address" Type="SurgeryModel.Address" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="SurgeryModel.ClinicDoctor" FromRole="Clinic" ToRole="Doctor" />
+        </EntityType>
+        <Association Name="ClinicDoctor">
+          <End Type="SurgeryModel.Clinic" Role="Clinic" Multiplicity="1" />
+          <End Type="SurgeryModel.Doctor" Role="Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="ClinicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="Specialization">
+          <Member Name="Surgeon" />
+          <Member Name="Neurologist" />
+          <Member Name="Oculist" />
+          <Member Name="Oncologist" />
+          <Member Name="Pediatrician" />
+          <Member Name="Psychiatrist" />
+          <Member Name="Cardiologist" />
+          <Member Name="FamilyDoctor" />
+        </EnumType>
+        <EntityType Name="VisitTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="SurgeryModel.DoctorVisitTime" FromRole="VisitTime" ToRole="Doctor" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="SurgeryModel.PatientVisitTime" FromRole="VisitTime" ToRole="Patient" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="DoctorVisitTime">
+          <End Type="SurgeryModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="SurgeryModel.VisitTime" Role="VisitTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitTime">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PatientVisitTime">
+          <End Type="SurgeryModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="SurgeryModel.VisitTime" Role="VisitTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitTime">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SurgeryModelStoreContainer" CdmEntityContainer="SurgeryModelContainer">
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="IsTypeOf(SurgeryModel.Patient)">
+        <MappingFragment StoreEntitySet="Patients">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PESELNumber" ColumnName="PESELNumber" />
+          <ComplexProperty Name="Address" TypeName="SurgeryModel.Address">
+            <ScalarProperty Name="Country" ColumnName="Address_Country" />
+            <ScalarProperty Name="City" ColumnName="Address_City" />
+            <ScalarProperty Name="Street" ColumnName="Address_Street" />
+            <ScalarProperty Name="StreetNumber" ColumnName="Address_StreetNumber" />
+            <ScalarProperty Name="HomeNumber" ColumnName="Address_HomeNumber" />
+            <ScalarProperty Name="PostalCode" ColumnName="Address_PostalCode" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctors">
+      <EntityTypeMapping TypeName="IsTypeOf(SurgeryModel.Doctor)">
+        <MappingFragment StoreEntitySet="Doctors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="ClinicId" ColumnName="ClinicId" />
+          <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+          <ScalarProperty Name="VisitPrice" ColumnName="VisitPrice" />
+          <ScalarProperty Name="LicenceNumber" ColumnName="LicenceNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clinics">
+      <EntityTypeMapping TypeName="IsTypeOf(SurgeryModel.Clinic)">
+        <MappingFragment StoreEntitySet="Clinics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ComplexProperty Name="Address" TypeName="SurgeryModel.Address">
+            <ScalarProperty Name="Country" ColumnName="Address_Country" />
+            <ScalarProperty Name="City" ColumnName="Address_City" />
+            <ScalarProperty Name="Street" ColumnName="Address_Street" />
+            <ScalarProperty Name="StreetNumber" ColumnName="Address_StreetNumber" />
+            <ScalarProperty Name="HomeNumber" ColumnName="Address_HomeNumber" />
+            <ScalarProperty Name="PostalCode" ColumnName="Address_PostalCode" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timetables">
+      <EntityTypeMapping TypeName="IsTypeOf(SurgeryModel.VisitTime)">
+        <MappingFragment StoreEntitySet="Timetables">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

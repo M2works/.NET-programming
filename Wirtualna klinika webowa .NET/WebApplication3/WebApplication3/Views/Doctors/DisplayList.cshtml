@@ -1,0 +1,116 @@
+﻿@model WebApplication3.Models.DoctorVisitsManager
+
+@{
+    ViewBag.Title = "DisplayList";
+    Verification v = new Verification(Request);
+    string minutes = "00";
+    int previousHour = -1, previousDay = -1;
+}
+
+<h2 class="centered">Lista wizyt</h2>
+
+<div class="row centered">
+    <div class="col-sm-6">
+        <h4>Dane lekarza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.StartingHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.StartingHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.EndingHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.EndingHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.AverageRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.AverageRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.RatingsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.RatingsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.Specialization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Specialization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.VisitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.VisitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.LicenseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.LicenseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.Clinic.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Clinic.Name)
+        </dd>
+
+    </dl>
+    </div>
+
+    <div class="col-sm-6">
+
+        <h2>Ekran wizyt</h2>
+        @foreach (VisitTime visit in Model.Visits)
+        {
+            if (previousDay != visit.Date.Day) { <br/> previousDay = visit.Date.Day; }
+            if (previousHour != visit.Date.Hour) { <br /> previousHour= visit.Date.Hour; } 
+            <a href='@Url.Action("Create", "VisitTimes", new { Date = visit.Date, DoctorId = visit.Doctor.Id })' class="btn btn-default visit">
+                @visit.Date.ToShortDateString()<br />
+                @visit.Date.ToShortTimeString()<br />
+            </a>
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Wróć do poprzedniego ekranu", "Search", "Patients", null,null)
+</p>

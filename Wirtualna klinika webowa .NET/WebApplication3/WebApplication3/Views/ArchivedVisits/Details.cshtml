@@ -1,0 +1,48 @@
+﻿@model WebApplication3.ArchivedVisit
+
+@{
+    ViewBag.Title = "Details";
+    string str;
+}
+
+<h2>Szczegóły wizyty</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @if(Model.Rating == null) { str = "brak"; }
+            else { str = Model.Rating.Value.ToString(); }
+            @str
+        </dd>
+
+        <dt>
+            <b>Doktor</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Name)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Surname)
+        </dd>
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj ocenę wizyty", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Wróć do poprzendiego ekranu", "History", "Patients",  new { id = Model.PatientId }, null)
+</p>

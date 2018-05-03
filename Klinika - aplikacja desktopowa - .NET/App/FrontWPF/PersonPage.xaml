@@ -1,0 +1,108 @@
+﻿<Page x:Class="Doktor_i_Pacjent_2017_XD_Pro.FrontWPF.PersonPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Doktor_i_Pacjent_2017_XD_Pro.FrontWPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="700"
+      Title="PersonPage">
+    <Page.Resources>
+        <local:VisitBackgroundConverter x:Key="lisviewitembackgroundconverter"/>
+        <DataTemplate x:Key="VisitListViewTemplate">
+            <DataTemplate.Resources>
+                <Style x:Key="LabelVisitStyle" TargetType="{x:Type Label}">
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </DataTemplate.Resources>
+            <StackPanel Width="150" Height="120" Orientation="Vertical" Background="#FF464646" Margin="5,10,5,10">
+                <Border BorderThickness="2" BorderBrush="AliceBlue">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource LabelVisitStyle}" Content="{Binding Date}"/>
+                        <Rectangle Width="5"/>
+                        <Label Style="{StaticResource LabelVisitStyle}" Content="{Binding Time}"/>
+                    </StackPanel>
+                </Border>
+                <Label Style="{StaticResource LabelVisitStyle}" Content="{Binding Doctor.FullName}"/>
+                <Label Style="{StaticResource LabelVisitStyle}" Content="{Binding Doctor.Clinic.Address.City}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Style="{StaticResource LabelVisitStyle}" Content="{Binding Patient.FullName}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Grid.Column="1" Name="Person_Grid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2.4*"/>
+        </Grid.ColumnDefinitions>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30" >Imię:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Column="1" VerticalContentAlignment="Center" Height="25" MinWidth="80" Margin="0,0,0,4" Name="NameTextBox" Text="{Binding Name}" TabIndex="0"/>
+        <Label HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30" >Nazwisko:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Height="25" MinWidth="80"  Margin="0,0,0,4" Name="SurnameTextbox" Text="{Binding Surname}" TabIndex="1"/>
+        <Label HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">PESEL:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" IsEnabled="False" VerticalContentAlignment="Center" Height="25" MinWidth="100" Margin="0,0,0,4" Name="PeselTextBox" Text="{Binding PESELNumber}"/>
+        <Label HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">Nr telefonu:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" Height="25" MinWidth="90" Margin="0,0,0,4" Name="PhoneTextBox" Text="{Binding PhoneNumber}" TabIndex="2"/>
+        <Label HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">Miejscowość:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" Height="25" Width="130" Margin="0,0,0,4" Name="CityTextBox" Text="{Binding Address.City}" TabIndex="3"/>
+        <Label HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">Kod pocztowy:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" Height="25" Width="60" Margin="0,0,0,4" Name="PostcodeTextBox" Text="{Binding Address.PostalCode}" TabIndex="4"/>
+        <Label HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">Ulica:</Label>
+        <TextBox HorizontalAlignment="Left" Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" Height="25" Width="130" Margin="0,0,0,4" Name="StreetTextBox" Text="{Binding Address.Street}" TabIndex="5"/>
+        <DockPanel Grid.Row="7" HorizontalAlignment="Right" >
+            <Label VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">Nr domu:</Label>
+            <TextBox VerticalContentAlignment="Center" Height="25" Width="30" Margin="0,0,0,4" Name="HouseNrTextBox" Text="{Binding Address.StreetNumber}" TabIndex="6"/>
+        </DockPanel>
+        <DockPanel Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left">
+            <Label VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="30">Nr mieszkania</Label>
+            <TextBox VerticalContentAlignment="Center" Height="25" Width="35" Margin="0,0,0,4" Name="FlatNumberTextBox" Text="{Binding Address.HomeNumber}" TabIndex="7"/>
+        </DockPanel>
+        <DockPanel Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+            <Grid>
+                <StackPanel VerticalAlignment="Center" Visibility="Visible" Name="PatientDataStackPanel" Orientation="Horizontal">
+                    <Button Height="25" MinWidth="90" Click="EditPatientData_Click" Margin="2" Name="EditPatientDataButton" IsTabStop="False">Edytuj dane</Button>
+                    <Button Height="25" MinWidth="90"  Click="UpdatePatienPatientButton_Click" Margin="2" Name="UpdatePatientButton" IsTabStop="False">Zapisz dane</Button>
+                    <Button Height="25" MinWidth="90"  Click="DeletePatientButton_Click" Margin="2" Name="DeletePatientButton" IsTabStop="False">Usuń pacjenta</Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Visibility="Hidden" Name="NewPatientStackPanel">
+                    <Button Height="25" Click="AddNewPatienPatientButton_Click" Margin="2" Name="AddNewPatienPatientButton" IsTabStop="False">Dodaj pacjenta</Button>
+                </StackPanel>
+            </Grid>
+            <!--<Button DockPanel.Dock="Right" Height="25" MaxWidth="200" Margin="0,3,0,3" Content="Losowy pacjent" Click="RandomPatientButton_Click" />-->
+        </DockPanel>
+        <Button Grid.Row="9" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" Height="25" Content="Wróć do menu" Click="ReturnButton_Click"  IsTabStop="False"/>
+        <Grid Grid.Column="2" Grid.RowSpan="10" Name="AppointmentsGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Wizyty pacjenta" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ListView Grid.Row="1" Name="VisitsList" ItemTemplate="{StaticResource VisitListViewTemplate}" Background="Transparent" MouseDoubleClick="VisitsList_MouseDoubleClick">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+            <StackPanel Grid.Row="2" Margin="0,10,0,10">
+                <Button  Height="35" MaxWidth="100" Name="VisitApplicationButton" Content="Zapisz na wizytę" Click="VisitAplliementButton_Click" IsTabStop="False"/>
+            </StackPanel>
+        </Grid>
+        <Image Grid.Column="2" Grid.RowSpan="9"  Name="i" Visibility="Hidden" Source="/Doktor_i_Pacjent_2017_XD_Pro;component/Resources/przychodnia-coventry-63.jpg"  />
+    </Grid>
+</Page>

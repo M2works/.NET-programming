@@ -1,0 +1,79 @@
+﻿@model WebApplication3.Clinic
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Usuń klinikę</h2>
+
+<h3>Czy na pewno chcesz usunąć wskazaną klinikę?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicAddress_Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicAddress_Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicAddress_City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicAddress_City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicAddress_Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicAddress_Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicAddress_StreetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicAddress_StreetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicAddress_HomeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicAddress_HomeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicAddress_PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicAddress_PostalCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Wróć do listy", "Index")
+        </div>
+    }
+</div>

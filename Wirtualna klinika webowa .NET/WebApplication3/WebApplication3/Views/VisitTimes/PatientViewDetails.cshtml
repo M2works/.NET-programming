@@ -1,0 +1,32 @@
+﻿@model WebApplication3.VisitTime
+
+@{
+    ViewBag.Title = "PatientViewDetails";
+}
+
+<div>
+    <h2>Szczegóły wizyty</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            Doktor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Name)
+            @Html.DisplayFor(model => model.Doctor.Surname)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Anuluj wizytę", "PatientViewDelete", new { id = Model.Id }) |
+    @Html.ActionLink("Wróć do poprzedniego ekranu", "Main", "Patients", new { id = Model.PatientId }, null)
+</p>

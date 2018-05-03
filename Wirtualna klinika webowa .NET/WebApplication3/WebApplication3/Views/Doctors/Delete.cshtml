@@ -1,0 +1,103 @@
+﻿@model WebApplication3.Doctor
+
+@{
+    ViewBag.Title = "Usuń lekarza - widok administratora";
+}
+
+<h2>Usuń lekarza</h2>
+
+<h3>Czy na pewno chcesz usunąć wskazanego lekarza?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndingHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndingHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AverageRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AverageRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specialization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specialization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VisitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VisitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LicenseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LicenseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clinic.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clinic.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Wróć do listy", "AdminIndex")
+        </div>
+    }
+</div>

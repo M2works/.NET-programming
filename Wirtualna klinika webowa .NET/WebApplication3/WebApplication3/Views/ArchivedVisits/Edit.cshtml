@@ -1,0 +1,62 @@
+﻿@model WebApplication3.ArchivedVisit
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.PatientId = Model.PatientId;
+    ViewBag.DoctorId = Model.DoctorId;
+}
+
+<h2>Oceń wizytę/zmień ocenę</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+
+                <dt>
+                    <b>Doktor</b>
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Doctor.Name)
+                </dd>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Doctor.Surname)
+                </dd>
+            </dl>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", min = 0, max = 5 } })
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Wróć do poprzedniego ekranu", "Details", new { id = Model.Id })
+</div>

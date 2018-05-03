@@ -1,0 +1,31 @@
+﻿@model WebApplication3.Admin
+
+@{
+    ViewBag.Title = "Admin Homepage";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Zarządzaj danymi</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <a href='@Url.Action("AdminIndex", "Patients")' class="btn btn-default">Lista pacjentów &raquo;</a><br />
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href='@Url.Action("AdminIndex", "Doctors")' class="btn btn-default">Lista lekarzy &raquo;</a><br />
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href='@Url.Action("AdminIndex", "Clinics")' class="btn btn-default">Lista klinik &raquo;</a><br />
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

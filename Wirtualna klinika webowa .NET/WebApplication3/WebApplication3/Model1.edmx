@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SurgeryContextLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArchivedVisits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" />
+        </EntityType>
+        <EntityType Name="Clinics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicAddress_Country" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicAddress_City" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicAddress_Street" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicAddress_StreetNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicAddress_HomeNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicAddress_PostalCode" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClinicId" Type="int" Nullable="false" />
+          <Property Name="StartingHour" Type="int" Nullable="false" />
+          <Property Name="EndingHour" Type="int" Nullable="false" />
+          <Property Name="AverageRating" Type="float" />
+          <Property Name="RatingsCount" Type="int" Nullable="false" />
+          <Property Name="Specialization" Type="int" Nullable="false" />
+          <Property Name="VisitPrice" Type="int" Nullable="false" />
+          <Property Name="LicenseNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DoctorAccount_Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DoctorAccount_Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PESELNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAddress_Country" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAddress_City" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAddress_Street" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAddress_StreetNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAddress_HomeNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAddress_PostalCode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAccount_Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PatientAccount_Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VisitTimes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClinicDoctor">
+          <End Role="Clinics" Type="Self.Clinics" Multiplicity="1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="ClinicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorArchivedVisit">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1" />
+          <End Role="ArchivedVisits" Type="Self.ArchivedVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArchivedVisits">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorVisitTime">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1" />
+          <End Role="VisitTimes" Type="Self.VisitTimes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitTimes">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsArchivedVisits">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="ArchivedVisits" Type="Self.ArchivedVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArchivedVisits">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitTimesPatients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="VisitTimes" Type="Self.VisitTimes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitTimes">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SurgeryContextLayerStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArchivedVisits" EntityType="Self.ArchivedVisits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clinics" EntityType="Self.Clinics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisitTimes" EntityType="Self.VisitTimes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClinicDoctor" Association="Self.FK_ClinicDoctor">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorArchivedVisit" Association="Self.FK_DoctorArchivedVisit">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="ArchivedVisits" EntitySet="ArchivedVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorVisitTime" Association="Self.FK_DoctorVisitTime">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="VisitTimes" EntitySet="VisitTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsArchivedVisits" Association="Self.FK_PatientsArchivedVisits">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="ArchivedVisits" EntitySet="ArchivedVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitTimesPatients" Association="Self.FK_VisitTimesPatients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="VisitTimes" EntitySet="VisitTimes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SurgeryContextLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArchivedVisit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorArchivedVisit" FromRole="ArchivedVisits" ToRole="Doctors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_PatientsArchivedVisits" FromRole="ArchivedVisits" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Clinic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicAddress_Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicAddress_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicAddress_Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicAddress_StreetNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicAddress_HomeNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicAddress_PostalCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_ClinicDoctor" FromRole="Clinics" ToRole="Doctors" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicId" Type="Int32" Nullable="false" />
+          <Property Name="StartingHour" Type="Int32" Nullable="false" />
+          <Property Name="EndingHour" Type="Int32" Nullable="false" />
+          <Property Name="AverageRating" Type="Double" />
+          <Property Name="RatingsCount" Type="Int32" Nullable="false" />
+          <Property Name="Specialization" Type="Int32" Nullable="false" />
+          <Property Name="VisitPrice" Type="Int32" Nullable="false" />
+          <Property Name="LicenseNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DoctorAccount_Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DoctorAccount_Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ArchivedVisits" Relationship="Self.FK_DoctorArchivedVisit" FromRole="Doctors" ToRole="ArchivedVisits" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_ClinicDoctor" FromRole="Doctors" ToRole="Clinics" />
+          <NavigationProperty Name="VisitTimes" Relationship="Self.FK_DoctorVisitTime" FromRole="Doctors" ToRole="VisitTimes" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PESELNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAddress_Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAddress_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAddress_Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAddress_StreetNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAddress_HomeNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAddress_PostalCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAccount_Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientAccount_Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ArchivedVisits" Relationship="Self.FK_PatientsArchivedVisits" FromRole="Patients" ToRole="ArchivedVisits" />
+          <NavigationProperty Name="VisitTimes" Relationship="Self.FK_VisitTimesPatients" FromRole="Patients" ToRole="VisitTimes" />
+        </EntityType>
+        <EntityType Name="VisitTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorVisitTime" FromRole="VisitTimes" ToRole="Doctors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_VisitTimesPatients" FromRole="VisitTimes" ToRole="Patients" />
+        </EntityType>
+        <Association Name="FK_DoctorArchivedVisit">
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="ArchivedVisits" Type="Self.ArchivedVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArchivedVisits">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsArchivedVisits">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="ArchivedVisits" Type="Self.ArchivedVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArchivedVisits">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClinicDoctor">
+          <End Role="Clinics" Type="Self.Clinic" Multiplicity="1" />
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="ClinicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorVisitTime">
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="VisitTimes" Type="Self.VisitTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitTimes">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitTimesPatients">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="VisitTimes" Type="Self.VisitTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitTimes">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SurgeryModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="ArchivedVisits" EntityType="Self.ArchivedVisit" />
+          <EntitySet Name="Clinics" EntityType="Self.Clinic" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="VisitTimes" EntityType="Self.VisitTime" />
+          <AssociationSet Name="FK_DoctorArchivedVisit" Association="Self.FK_DoctorArchivedVisit">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="ArchivedVisits" EntitySet="ArchivedVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsArchivedVisits" Association="Self.FK_PatientsArchivedVisits">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="ArchivedVisits" EntitySet="ArchivedVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClinicDoctor" Association="Self.FK_ClinicDoctor">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorVisitTime" Association="Self.FK_DoctorVisitTime">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="VisitTimes" EntitySet="VisitTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitTimesPatients" Association="Self.FK_VisitTimesPatients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="VisitTimes" EntitySet="VisitTimes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SurgeryContextLayerStoreContainer" CdmEntityContainer="SurgeryModel">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="SurgeryContextLayer.Admin">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArchivedVisits">
+            <EntityTypeMapping TypeName="SurgeryContextLayer.ArchivedVisit">
+              <MappingFragment StoreEntitySet="ArchivedVisits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clinics">
+            <EntityTypeMapping TypeName="SurgeryContextLayer.Clinic">
+              <MappingFragment StoreEntitySet="Clinics">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClinicAddress_Country" ColumnName="ClinicAddress_Country" />
+                <ScalarProperty Name="ClinicAddress_City" ColumnName="ClinicAddress_City" />
+                <ScalarProperty Name="ClinicAddress_Street" ColumnName="ClinicAddress_Street" />
+                <ScalarProperty Name="ClinicAddress_StreetNumber" ColumnName="ClinicAddress_StreetNumber" />
+                <ScalarProperty Name="ClinicAddress_HomeNumber" ColumnName="ClinicAddress_HomeNumber" />
+                <ScalarProperty Name="ClinicAddress_PostalCode" ColumnName="ClinicAddress_PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="SurgeryContextLayer.Doctor">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ClinicId" ColumnName="ClinicId" />
+                <ScalarProperty Name="StartingHour" ColumnName="StartingHour" />
+                <ScalarProperty Name="EndingHour" ColumnName="EndingHour" />
+                <ScalarProperty Name="AverageRating" ColumnName="AverageRating" />
+                <ScalarProperty Name="RatingsCount" ColumnName="RatingsCount" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+                <ScalarProperty Name="VisitPrice" ColumnName="VisitPrice" />
+                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+                <ScalarProperty Name="DoctorAccount_Login" ColumnName="DoctorAccount_Login" />
+                <ScalarProperty Name="DoctorAccount_Password" ColumnName="DoctorAccount_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="SurgeryContextLayer.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PESELNumber" ColumnName="PESELNumber" />
+                <ScalarProperty Name="PatientAddress_Country" ColumnName="PatientAddress_Country" />
+                <ScalarProperty Name="PatientAddress_City" ColumnName="PatientAddress_City" />
+                <ScalarProperty Name="PatientAddress_Street" ColumnName="PatientAddress_Street" />
+                <ScalarProperty Name="PatientAddress_StreetNumber" ColumnName="PatientAddress_StreetNumber" />
+                <ScalarProperty Name="PatientAddress_HomeNumber" ColumnName="PatientAddress_HomeNumber" />
+                <ScalarProperty Name="PatientAddress_PostalCode" ColumnName="PatientAddress_PostalCode" />
+                <ScalarProperty Name="PatientAccount_Login" ColumnName="PatientAccount_Login" />
+                <ScalarProperty Name="PatientAccount_Password" ColumnName="PatientAccount_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitTimes">
+            <EntityTypeMapping TypeName="SurgeryContextLayer.VisitTime">
+              <MappingFragment StoreEntitySet="VisitTimes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
